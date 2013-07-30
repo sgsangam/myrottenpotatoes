@@ -1,0 +1,221 @@
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (140.6ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (125.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (15.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateMovies (20111119180638)
+  [1m[35m (15.6ms)[0m  CREATE TABLE "movies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "rating" varchar(255), "description" text, "release_date" datetime, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111119180638')[0m
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (15.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("movies")
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35mSQL (625.0ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 05:02:02 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Wed, 25 Nov 1992 00:00:00 UTC +00:00], ["title", "Aladdin"], ["updated_at", Tue, 30 Jul 2013 05:02:02 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Fri, 26 Oct 1984 00:00:00 UTC +00:00], ["title", "The Terminator"], ["updated_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00]]
+  [1m[35mSQL (15.6ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Fri, 21 Jul 1989 00:00:00 UTC +00:00], ["title", "When Harry Met Sally"], ["updated_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00], ["description", nil], ["rating", "PG-13"], ["release_date", Wed, 10 Aug 2011 00:00:00 UTC +00:00], ["title", "The Help"], ["updated_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00]]
+  [1m[35mSQL (15.6ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00], ["description", nil], ["rating", "PG-13"], ["release_date", Fri, 05 Jan 2001 00:00:00 UTC +00:00], ["title", "Chocolat"], ["updated_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Wed, 25 Apr 2001 00:00:00 UTC +00:00], ["title", "Amelie"], ["updated_at", Tue, 30 Jul 2013 05:02:03 UTC +00:00]]
+  [1m[35mSQL (15.6ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Sat, 06 Apr 1968 00:00:00 UTC +00:00], ["title", "2001: A Space Odyssey"], ["updated_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00], ["description", nil], ["rating", "PG"], ["release_date", Fri, 05 Nov 2004 00:00:00 UTC +00:00], ["title", "The Incredibles"], ["updated_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00]]
+  [1m[35mSQL (15.6ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00], ["description", nil], ["rating", "PG"], ["release_date", Fri, 12 Jun 1981 00:00:00 UTC +00:00], ["title", "Raiders of the Lost Ark"], ["updated_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00]]
+  [1m[36mSQL (15.6ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Wed, 21 Jun 2000 00:00:00 UTC +00:00], ["title", "Chicken Run"], ["updated_at", Tue, 30 Jul 2013 05:02:04 UTC +00:00]]
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:13:09 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Completed 500 Internal Server Error in 3234ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (656.2ms)
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-07-29 22:14:10 -0700
+Served asset /rails.png - 200 OK (312ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:14:11 -0700
+  Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (15.6ms)[0m  SELECT "movies".* FROM "movies" 
+Completed 500 Internal Server Error in 78ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:14:30 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Completed 500 Internal Server Error in 94ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:17:39 -0700
+  Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.0ms)[0m  SELECT "movies".* FROM "movies" 
+Completed 500 Internal Server Error in 172ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.0ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:19:21 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Completed 500 Internal Server Error in 78ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (15.6ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-29 22:19:28 -0700
+  Processing by MoviesController#index as HTML
+  [1m[35mMovie Load (0.0ms)[0m  SELECT "movies".* FROM "movies" 
+Completed 500 Internal Server Error in 78ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.0ms)
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-07-30 09:41:06 -0700
+Served asset /rails.png - 304 Not Modified (93ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-30 09:41:45 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (15.6ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Completed 500 Internal Server Error in 3078ms
+
+ActionView::MissingTemplate (Missing template movies/index, application/index with {:handlers=>[:erb, :builder, :coffee], :formats=>[:html], :locale=>[:en, :en]}. Searched in:
+  * "/home/rails_projects/hw2_rottenpotatoes/app/views"
+):
+  
+
+Rendered /usr/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (531.2ms)
+  [1m[36m (62.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateMovies (20111119180638)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("movies")
+  [1m[36m (0.0ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35mSQL (718.8ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:22:45 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Wed, 25 Nov 1992 00:00:00 UTC +00:00], ["title", "Aladdin"], ["updated_at", Tue, 30 Jul 2013 17:22:45 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 17:22:46 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Fri, 26 Oct 1984 00:00:00 UTC +00:00], ["title", "The Terminator"], ["updated_at", Tue, 30 Jul 2013 17:22:46 UTC +00:00]]
+  [1m[35mSQL (15.6ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:22:47 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Fri, 21 Jul 1989 00:00:00 UTC +00:00], ["title", "When Harry Met Sally"], ["updated_at", Tue, 30 Jul 2013 17:22:47 UTC +00:00]]
+  [1m[36mSQL (15.6ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 17:22:47 UTC +00:00], ["description", nil], ["rating", "PG-13"], ["release_date", Wed, 10 Aug 2011 00:00:00 UTC +00:00], ["title", "The Help"], ["updated_at", Tue, 30 Jul 2013 17:22:47 UTC +00:00]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00], ["description", nil], ["rating", "PG-13"], ["release_date", Fri, 05 Jan 2001 00:00:00 UTC +00:00], ["title", "Chocolat"], ["updated_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00], ["description", nil], ["rating", "R"], ["release_date", Wed, 25 Apr 2001 00:00:00 UTC +00:00], ["title", "Amelie"], ["updated_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Sat, 06 Apr 1968 00:00:00 UTC +00:00], ["title", "2001: A Space Odyssey"], ["updated_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00]]
+  [1m[36mSQL (15.6ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00], ["description", nil], ["rating", "PG"], ["release_date", Fri, 05 Nov 2004 00:00:00 UTC +00:00], ["title", "The Incredibles"], ["updated_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00], ["description", nil], ["rating", "PG"], ["release_date", Fri, 12 Jun 1981 00:00:00 UTC +00:00], ["title", "Raiders of the Lost Ark"], ["updated_at", Tue, 30 Jul 2013 17:22:48 UTC +00:00]]
+  [1m[36mSQL (15.6ms)[0m  [1mINSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", Tue, 30 Jul 2013 17:22:49 UTC +00:00], ["description", nil], ["rating", "G"], ["release_date", Wed, 21 Jun 2000 00:00:00 UTC +00:00], ["title", "Chicken Run"], ["updated_at", Tue, 30 Jul 2013 17:22:49 UTC +00:00]]
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-07-30 10:28:57 -0700
+Served asset /rails.png - 304 Not Modified (15ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-30 10:39:11 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Rendered movies/index.html.haml within layouts/application (281.2ms)
+Compiled application.css  (15ms)  (pid 4324)
+Compiled application.js  (78ms)  (pid 4324)
+Compiled jquery.js  (46ms)  (pid 4324)
+Compiled jquery_ujs.js  (31ms)  (pid 4324)
+Completed 200 OK in 3453ms (Views: 3453.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-30 10:39:52 -0700
+Served asset /application.css - 200 OK (140ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-30 10:39:52 -0700
+Served asset /jquery.js - 200 OK (218ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-30 10:39:52 -0700
+Served asset /jquery_ujs.js - 200 OK (203ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-30 10:39:53 -0700
+Served asset /application.js - 200 OK (218ms)
+
+
+Started GET "/movies/new" for 127.0.0.1 at 2013-07-30 10:40:27 -0700
+  Processing by MoviesController#new as HTML
+Rendered movies/new.html.haml within layouts/application (93.8ms)
+Completed 200 OK in 156ms (Views: 156.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-30 10:40:28 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-30 10:40:28 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-30 10:40:28 -0700
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-30 10:40:28 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started POST "/movies" for 127.0.0.1 at 2013-07-30 10:41:57 -0700
+  Processing by MoviesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"oyqd/RYfNgXhA/Li/AabMgO2msFM/2S7onEyueIY7Nc=", "movie"=>{"title"=>"Lincoln", "rating"=>"PG", "release_date(1i)"=>"2012", "release_date(2i)"=>"12", "release_date(3i)"=>"18"}, "commit"=>"Save Changes"}
+  [1m[35mSQL (546.9ms)[0m  INSERT INTO "movies" ("created_at", "description", "rating", "release_date", "title", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", Tue, 30 Jul 2013 17:41:57 UTC +00:00], ["description", nil], ["rating", "PG"], ["release_date", Tue, 18 Dec 2012 00:00:00 UTC +00:00], ["title", "Lincoln"], ["updated_at", Tue, 30 Jul 2013 17:41:57 UTC +00:00]]
+Redirected to http://localhost:3000/movies
+Completed 302 Found in 797ms
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-07-30 10:41:58 -0700
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+Rendered movies/index.html.haml within layouts/application (171.9ms)
+Completed 200 OK in 266ms (Views: 250.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-07-30 10:41:58 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-07-30 10:41:58 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-07-30 10:41:58 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-07-30 10:41:58 -0700
+Served asset /application.js - 304 Not Modified (0ms)

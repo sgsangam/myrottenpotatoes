@@ -8,7 +8,8 @@ gem 'rails', '3.1.0'
 # for Heroku deployment - as described in Ap. A of ELLS book
 group :development, :test do
   gem 'sqlite3'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+ #  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger'
 end
 group :production do
   gem 'pg'
@@ -17,11 +18,15 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'therubyracer'              
+# I am commenting it for now. 
+#  gem 'therubyracer'              
   gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
+gem 'coffee-rails', "~> 3.1.0"
+gem 'uglifier'
 end
+
+#use Haml for template
+gem 'haml'
 
 gem 'jquery-rails'
 
@@ -31,5 +36,3 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-gem 'haml'
