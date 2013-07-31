@@ -1,16 +1,16 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375205991.318625:@value{I"
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375293895.796875:@value{I"
 class:EFI"BundledAsset;
 FI"id;
-F"%1bf567b3d19f3a82bfe52f78b4601fc7I"logical_path;
+F"%87b72d24cf66a61fb3379029abf41f85I"logical_path;
 FI"application.css;
 TI"pathname;
 FI"1$root/app/assets/stylesheets/application.css:encoding"Windows-1252I"content_type;
 FI"text/css;
 FI"
 mtime;
-FI"2013-07-29T10:30:52-07:00;
+FI"2013-07-31T11:04:46-07:00;
 FI"	body;
-FI"!html, body {
+FI"Éhtml, body {
   margin: 0;
   padding: 0;
   background: White;
@@ -60,6 +60,13 @@ table#movies th, table#movies td {
   padding: 4px;
   text-align: left;
 }
+table#movies th.hilite {
+  background-color: yellow;
+}
+#title_header {
+}
+#release_date_header {
+}
 #notice #warning {
   background: rosybrown;
   margin: 1em 0;
@@ -77,7 +84,7 @@ F[I"1$root/app/assets/stylesheets/application.css;@I"dependency_paths;
 F[{I"	path;
 FI"1$root/app/assets/stylesheets/application.css;@I"
 mtime;
-FIu:	Time±[ÄpXJ{:@_zoneI"PDT;
+FIu:	TimeÚ[ÄDïË:@_zoneI"PDT;
 T:offseti˛êùI"hexdigest;
-F"%d8b1a46a7ac0f6a5b954eb847ff7f110I"_version;
+F"%b0ee5fdbba479fb36a237cb978155cfbI"_version;
 F"%46dde6621c301f4928e3b34efee9e3b5

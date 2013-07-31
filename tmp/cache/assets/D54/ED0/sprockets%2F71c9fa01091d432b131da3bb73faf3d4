@@ -1,6 +1,6 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375205992.4905002:@value{	I"length:EFi!I"digest;
-F"%d8b1a46a7ac0f6a5b954eb847ff7f110I"source;
-FI"!html, body {
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375293896.140625:@value{	I"length:EFiƒI"digest;
+F"%b0ee5fdbba479fb36a237cb978155cfbI"source;
+FI"ƒhtml, body {
   margin: 0;
   padding: 0;
   background: White;
@@ -50,6 +50,13 @@ table#movies th, table#movies td {
   padding: 4px;
   text-align: left;
 }
+table#movies th.hilite {
+  background-color: yellow;
+}
+#title_header {
+}
+#release_date_header {
+}
 #notice #warning {
   background: rosybrown;
   margin: 1em 0;
@@ -63,4 +70,4 @@ form label {
 }
 ;
 FI"_version;
-F"%1bf567b3d19f3a82bfe52f78b4601fc7
+F"%87b72d24cf66a61fb3379029abf41f85
