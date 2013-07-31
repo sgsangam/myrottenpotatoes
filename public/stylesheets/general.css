@@ -43,7 +43,17 @@ table#movies {
   width: 100%;
   border-bottom: 2px solid black;
 }
+#movies {
+}
 table#movies th {
+  border: 2px solid black;
+  font-weight: bold;
+}
+table#movies th#title_header {
+  border: 2px solid black;
+  font-weight: bold;
+}
+table#movies th#release_date_header {
   border: 2px solid black;
   font-weight: bold;
 }
@@ -51,6 +61,7 @@ table#movies th, table#movies td {
   padding: 4px;
   text-align: left;
 }
+
 em {
   font-weight: bold;
   font-style: normal;
