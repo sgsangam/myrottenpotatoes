@@ -10,27 +10,47 @@ class MoviesController < ApplicationController
     @sort_type = params["sort"]
     @all_ratings = Hash.new()
     @checkked_buttons = Array.new
+    @param_str = ''
     # flash[:notice] = "Params: #{params}"
     all_ratings = Movie.select(:rating).map(&:rating).uniq.sort
+    all_ratings.each {|rating| @all_ratings[rating]=false}
     if params["commit"] == "Refresh"
-      all_ratings.each {|rating| @all_ratings[rating]=false}
-      @checked_buttons = params["ratings"].keys
-      @checked_buttons.each  {|rating| @all_ratings[rating]=true} 
-      @movies = Movie.where(:rating => @checked_buttons).all
-      # flash[:notice] = "Checked_Buttons: #{params["ratings"]}"
+      # flash[:notice] = "Ratings: #{params["ratings"].keys}"
+      @checkked_buttons = params["ratings"].keys
+      # flash[:notice] = "@checkked_buttons: #{@checkked_buttons}"
+      @checkked_buttons.each {|rating| @all_ratings[rating]=true}
+      params["ratings"].each do |rating, val|  
+        @param_str = @param_str+'&'+rating+'='+val
+      end
+      @movies = Movie.where(:rating => @checkked_buttons).all
+    elsif @sort_type == 'title' || @sort_type == 'release_date'      
+      @all_ratings.each do |rating, rval|
+        params.each do |key, val|                 
+          if rating == key
+            @checkked_buttons << key            
+            @all_ratings[rating] = true
+            @param_str = @param_str+'&'+rating+'='+val
+          end
+        end
+      end
+      # flash[:notice] = "@all_ratings: #{@all_ratings}"
+      # flash[:notice] = "@checked_buttons: #{@checkked_buttons}"
+      if @sort_type == 'title'
+        # @movies = Movie.order('title')
+        @movies = Movie.where(:rating => @checkked_buttons).all
+        @movies.sort! {|t1, t2| t1.title <=> t2.title }
+      else @sort_type == 'release_date'
+        # @movies = Movie.order('release_date')
+        @movies = Movie.where(:rating => @checkked_buttons).all
+        @movies.sort! {|r1, r2| r1.release_date <=> r2.release_date}     
+      end
     else
-      case @sort_type 
-        when 'title'   
-          @movies = Movie.order('title')
-        when 'release_date'  
-          @movies = Movie.order('release_date')
-        else 
-          @movies = Movie.all
-        all_ratings.each {|rating| @all_ratings[rating]=true}
+      @movies = Movie.all
+      all_ratings.each do |rating|
+        @all_ratings[rating]=true
+        @param_str = @param_str+'&'+rating+'=1'
       end
     end
-    
-    
   end
 
   def new
