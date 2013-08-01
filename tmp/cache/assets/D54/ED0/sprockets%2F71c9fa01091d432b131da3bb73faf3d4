@@ -1,6 +1,6 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375293896.140625:@value{	I"length:EFiƒI"digest;
-F"%b0ee5fdbba479fb36a237cb978155cfbI"source;
-FI"ƒhtml, body {
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375334052.0625:@value{	I"length:EFi½I"digest;
+F"%85620ca5f21c2e4f6efc6a64de371719I"source;
+FI"½html, body {
   margin: 0;
   padding: 0;
   background: White;
@@ -9,6 +9,10 @@ FI"ƒhtml, body {
   font-size: 10pt;
 }
 div#main {
+  margin: 0;
+  padding: 0 20px 20px;
+}
+div#ratings_form {
   margin: 0;
   padding: 0 20px 20px;
 }
@@ -70,4 +74,4 @@ form label {
 }
 ;
 FI"_version;
-F"%87b72d24cf66a61fb3379029abf41f85
+F"%229934c41436fe4d394f26b3bceffc09

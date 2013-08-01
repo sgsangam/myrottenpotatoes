@@ -8,13 +8,26 @@ class MoviesController < ApplicationController
 
   def index
     @sort_type = params["sort"]
-    case @sort_type 
-      when 'title'   
-        @movies = Movie.order('title')
-      when 'release_date'  
-        @movies = Movie.order('release_date')
-      else 
-        @movies = Movie.all
+    @all_ratings = Hash.new()
+    @checkked_buttons = Array.new
+    # flash[:notice] = "Params: #{params}"
+    all_ratings = Movie.select(:rating).map(&:rating).uniq.sort
+    if params["commit"] == "Refresh"
+      all_ratings.each {|rating| @all_ratings[rating]=false}
+      @checked_buttons = params["ratings"].keys
+      @checked_buttons.each  {|rating| @all_ratings[rating]=true} 
+      @movies = Movie.where(:rating => @checked_buttons).all
+      # flash[:notice] = "Checked_Buttons: #{params["ratings"]}"
+    else
+      case @sort_type 
+        when 'title'   
+          @movies = Movie.order('title')
+        when 'release_date'  
+          @movies = Movie.order('release_date')
+        else 
+          @movies = Movie.all
+        all_ratings.each {|rating| @all_ratings[rating]=true}
+      end
     end
     
     
