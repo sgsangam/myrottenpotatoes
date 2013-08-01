@@ -14,7 +14,7 @@ class MoviesController < ApplicationController
     # flash[:notice] = "Params: #{params}"
     all_ratings = Movie.select(:rating).map(&:rating).uniq.sort
     all_ratings.each {|rating| @all_ratings[rating]=false}
-    if params["commit"] == "Refresh"
+    if params["commit"] == "ratings_submit"
       # flash[:notice] = "Ratings: #{params["ratings"].keys}"
       @checkked_buttons = params["ratings"].keys
       # flash[:notice] = "@checkked_buttons: #{@checkked_buttons}"

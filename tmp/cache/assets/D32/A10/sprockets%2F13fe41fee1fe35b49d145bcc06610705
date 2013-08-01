@@ -1,16 +1,16 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375334051.640625:@value{I"
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375385576.8125:@value{I"
 class:EFI"BundledAsset;
 FI"id;
-F"%229934c41436fe4d394f26b3bceffc09I"logical_path;
+F"%832ff08cb95963b8c5d0d6f9fbdca45eI"logical_path;
 FI"application.css;
 TI"pathname;
 FI"1$root/app/assets/stylesheets/application.css:encoding"Windows-1252I"content_type;
 FI"text/css;
 FI"
 mtime;
-FI"2013-07-31T22:14:03-07:00;
+FI"2013-08-01T12:19:17-07:00;
 FI"	body;
-FI"Ωhtml, body {
+FI"“html, body {
   margin: 0;
   padding: 0;
   background: White;
@@ -25,6 +25,9 @@ div#main {
 div#ratings_form {
   margin: 0;
   padding: 0 20px 20px;
+}
+ratings_submit{
+  
 }
 a {
   background: transparent;
@@ -88,7 +91,7 @@ F[I"1$root/app/assets/stylesheets/application.css;@I"dependency_paths;
 F[{I"	path;
 FI"1$root/app/assets/stylesheets/application.css;@I"
 mtime;
-FIu:	Time%\ÄHË18:@_zoneI"PDT;
+FIu:	Time3\Äå}M:@_zoneI"PDT;
 T:offseti˛êùI"hexdigest;
-F"%85620ca5f21c2e4f6efc6a64de371719I"_version;
+F"%ba418f53d2ba389b7963f9b4b96ea8e8I"_version;
 F"%46dde6621c301f4928e3b34efee9e3b5

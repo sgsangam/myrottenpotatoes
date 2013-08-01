@@ -7,7 +7,7 @@
   - @all_ratings.each do |rating, checked|
     = rating
     = check_box_tag "ratings[#{rating}]", 1, checked
-  = submit_tag 'Refresh'
+  = submit_tag 'ratings_submit',  id: "ratings_submit"
 
 %table#movies
   %thead
