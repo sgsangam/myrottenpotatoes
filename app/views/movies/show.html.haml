@@ -16,4 +16,9 @@
 
 = link_to 'Edit', edit_movie_path(@movie)
 = button_to 'Delete', movie_path(@movie), :method => :delete, :confirm => 'Are you sure?'
-= link_to 'Back to movie list', movies_path
+-if @sort_type != nil
+  = link_to 'Back to movie list', movies_path+'?sort='+@sort_type+@param_str
+-elsif @submit_type == "commit"
+  = link_to 'Back to movie list', movies_path+@submit_str
+-else
+  = link_to 'Back to movie list', movies_path

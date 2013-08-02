@@ -1,6 +1,6 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375385577.296875:@value{	I"length:EFiÒI"digest;
-F"%ba418f53d2ba389b7963f9b4b96ea8e8I"source;
-FI"Òhtml, body {
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1375411372.984375:@value{	I"length:EFiÏI"digest;
+F"%5fa06f03f00a0dbd6f926a903019877eI"source;
+FI"Ïhtml, body {
   margin: 0;
   padding: 0;
   background: White;
@@ -17,7 +17,6 @@ div#ratings_form {
   padding: 0 20px 20px;
 }
 ratings_submit{
-  
 }
 a {
   background: transparent;
@@ -77,4 +76,4 @@ form label {
 }
 ;
 FI"_version;
-F"%832ff08cb95963b8c5d0d6f9fbdca45e
+F"%d463c7c46f8a53642715294a105f130c
