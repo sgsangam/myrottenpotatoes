@@ -50,26 +50,33 @@ class MoviesController < ApplicationController
     if params["commit"] == "ratings_submit"
       #flash[:notice] = "Ratings: #{params["ratings"].keys}"
       if params['ratings'] != nil
-        @checkked_buttons = params["ratings"].keys
+        param_ratings = params["ratings"]
+        @checkked_buttons = param_ratings.keys
       else
         @checkked_buttons =session[:checkked_button]
       end
       # flash[:notice] = "@checkked_buttons: #{@checkked_buttons}"
       @checkked_buttons.each {|rating| @all_ratings[rating]=true}
       @checkked_buttons.each do |rating|  
-        @param_str = @param_str+'&'+rating+'='+'1'
+        @param_str = @param_str+'&ratings['+rating+']='+'1'
       end
       @movies = Movie.where(:rating => @checkked_buttons).all
-      @movies.sort! {|t1, t2| t1.title <=> t2.title }
+      if session[:sort_type] == 'title'
+        @movies.sort! {|t1, t2| t1.title <=> t2.title }
+      elsif session[:sort_type] == 'release_date'
+        @movies.sort! {|r1, r2| r1.release_date <=> r2.release_date}
+      else
+      end
       @submit_type = "commit"
       self.save_session(params)      
-    elsif @sort_type == 'title' || @sort_type == 'release_date'      
-      @all_ratings.each do |rating, rval|
-        params.each do |key, val|                 
+    elsif @sort_type == 'title' || @sort_type == 'release_date'
+      param_ratings = params["ratings"]    
+      @all_ratings.each do |rating, rval|        
+        param_ratings.each do |key, val|                 
           if rating == key
             @checkked_buttons << key            
             @all_ratings[rating] = true
-            @param_str = @param_str+'&'+rating+'='+val
+            @param_str = @param_str+'&ratings['+rating+']='+val
           end
         end
       end
@@ -90,7 +97,7 @@ class MoviesController < ApplicationController
       @movies = Movie.all
       all_ratings.each do |rating|
         @all_ratings[rating]=true
-        @param_str = @param_str+'&'+rating+'=1'
+        @param_str = @param_str+'&ratings['+rating+']=1'
         self.session.clear
       end
     end
