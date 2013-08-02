@@ -68,6 +68,7 @@ class MoviesController < ApplicationController
       else
       end
       @submit_type = "commit"
+      @sort_type = session[:sort_type]
       self.save_session(params)      
     elsif @sort_type == 'title' || @sort_type == 'release_date'
       param_ratings = params["ratings"]    
