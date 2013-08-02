@@ -60,6 +60,7 @@ class MoviesController < ApplicationController
         @param_str = @param_str+'&'+rating+'='+'1'
       end
       @movies = Movie.where(:rating => @checkked_buttons).all
+      @movies.sort! {|t1, t2| t1.title <=> t2.title }
       @submit_type = "commit"
       self.save_session(params)      
     elsif @sort_type == 'title' || @sort_type == 'release_date'      
