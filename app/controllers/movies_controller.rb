@@ -5,7 +5,6 @@ class MoviesController < ApplicationController
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
     self.restore_session
-    # flash[:notice] = "session: #{session}"
   end
 
   def save_session(params=nil)
@@ -19,8 +18,8 @@ class MoviesController < ApplicationController
     end    
     if @submit_type == "commit"
       @submit_str="?utf8="+params["utf8"]
-      params["ratings"].each do |key, val|
-        str = '&ratings['+key+']='+val
+      @checkked_buttons.each do |key|
+        str = '&ratings['+key+']='+'1'
         @submit_str = @submit_str+str
       end
       @submit_str = @submit_str+"&commit="+params["commit"]
@@ -49,12 +48,16 @@ class MoviesController < ApplicationController
     all_ratings = Movie.select(:rating).map(&:rating).uniq.sort
     all_ratings.each {|rating| @all_ratings[rating]=false}
     if params["commit"] == "ratings_submit"
-      # flash[:notice] = "Ratings: #{params["ratings"].keys}"
-      @checkked_buttons = params["ratings"].keys
+      #flash[:notice] = "Ratings: #{params["ratings"].keys}"
+      if params['ratings'] != nil
+        @checkked_buttons = params["ratings"].keys
+      else
+        @checkked_buttons =session[:checkked_button]
+      end
       # flash[:notice] = "@checkked_buttons: #{@checkked_buttons}"
       @checkked_buttons.each {|rating| @all_ratings[rating]=true}
-      params["ratings"].each do |rating, val|  
-        @param_str = @param_str+'&'+rating+'='+val
+      @checkked_buttons.each do |rating|  
+        @param_str = @param_str+'&'+rating+'='+'1'
       end
       @movies = Movie.where(:rating => @checkked_buttons).all
       @submit_type = "commit"
@@ -95,11 +98,21 @@ class MoviesController < ApplicationController
   def new
     # default: render 'new' template
   end
+  def redirect
+    self.restore_session 
+    if @sort_type != nil
+      redirect_to movies_path+'?sort='+@sort_type+@param_str
+    elsif @submit_type == 'commit'
+      redirect_to movies_path+@submit_str
+    else
+      redirect_to movies_path
+    end
+  end
 
   def create
     @movie = Movie.create!(params[:movie])
-    flash[:notice] = "#{@movie.title} was successfully created."   
-    redirect_to movies_path
+    flash[:notice] = "#{@movie.title} was successfully created." 
+    self.redirect
   end
 
   def edit
@@ -109,7 +122,7 @@ class MoviesController < ApplicationController
   def update
     @movie = Movie.find params[:id]
     @movie.update_attributes!(params[:movie])
-    flash[:notice] = "#{@movie.title} was successfully updated."
+    flash[:notice] = "#{@movie.title} was successfully updated."    
     redirect_to movie_path(@movie)
   end
 
@@ -117,7 +130,7 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
+    self.redirect
   end
 
 end
