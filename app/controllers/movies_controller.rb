@@ -10,8 +10,9 @@ class MoviesController < ApplicationController
   def restore_session
     @sort_type = session[:sort_type]
     @param_str = session[:param_str]
-    @submit_str = session[:submit_str]
     @all_ratings = session[:all_ratings]
+    @redirect_type = session[:redirect_type]
+    @redirect_str = session[:redirect_str]
   end
 
   def index
@@ -67,7 +68,14 @@ class MoviesController < ApplicationController
     session[:param_str] = @param_str
     if params["commit"] != nil 
       @submit_str = "?utf8="+params["utf8"]+@param_str+"&commit="+params["commit"]
-      session[:submit_str] = @submit_str
+      session[:redirect_str] = @submit_str
+      session[:redirect_type] = "commit"
+    elsif params["sort"] != nil
+      session[:redirect_type] = "sort"
+      session[:redirect_str] = "?sort="+params["sort"]+@param_str
+    else
+      session[:redirect_type] = nil
+      session[:redirect_str] = ''
     end
   end
 
@@ -76,11 +84,10 @@ class MoviesController < ApplicationController
   end
 
   def redirect
-    self.restore_session 
-    if @sort_type != nil
-      redirect_to movies_path+'?sort='+@sort_type+@param_str
-    elsif @submit_type == 'commit'
-      redirect_to movies_path+@submit_str
+    self.restore_session    
+    flash.keep 
+    if @ridirect_type != nil
+      redirect_to movies_path+@redirect_str
     else
       redirect_to movies_path
     end
