@@ -4,99 +4,105 @@ class MoviesController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-    self.restore_session
   end
 
-  def restore_session
-    @sort_type = session[:sort_type]
-    @param_str = session[:param_str]
-    @all_ratings = session[:all_ratings]
-    @redirect_type = session[:redirect_type]
-    @redirect_str = session[:redirect_str]
-  end
-
-  def index
-    @sort_type = ''    
-    @all_ratings = Hash.new()
-    @param_str = ''
-    checkked_buttons = []
-=begin
-    flash[:notice] = "sess_sort_type: #{session[:sort_type]},
-    sess_all_ratings: #{session[:all_ratings]}, 
-    cur_params: #{params}"
-=end
-
-    
-    # Setup Parameters & Consult/Save Session Parameters as need be
-    session[:sort_type] = params["sort"] unless params["sort"] == nil
-    @sort_type = session[:sort_type]
-
-    # find uniq rating parameters from db, and setup @all_ratings 
-    # First time setup checkked_buttons in session
-    if session[:all_ratings] == nil
-      ratings = Movie.select(:rating).map(&:rating).uniq.sort
-      ratings.each {|rating| @all_ratings[rating] = true}
-      session[:all_ratings] = @all_ratings  
-    else
-      @all_ratings = session[:all_ratings]
-    end
-
-    if params["ratings"] == nil
-          @all_ratings.each {|rating, val| checkked_buttons << rating unless val == false}
-    else
-        keys = @all_ratings.keys
-        keys.each {|rating| @all_ratings[rating] = false}
-        checkked_buttons =  params["ratings"].keys
-        checkked_buttons.each  {|rating| @all_ratings[rating] = true}
-        session[:all_ratings] = @all_ratings  
-    end
-    
+  def sorted_results(sort_cond, sort_type)   
     # Get the records from the database, sort as needed
-    @movies = Movie.where(:rating => checkked_buttons).all    
-    
-    if session[:sort_type] != nil
-      if session[:sort_type] == 'title'
+    @movies = Movie.where(:rating => sort_cond).all
+    if sort_type != nil
+      if sort_type == 'title'
         @movies.sort! {|t1, t2| t1.title <=> t2.title }
-      elsif session[:sort_type] == 'release_date'
+      elsif sort_type == 'release_date'
         @movies.sort! {|r1, r2| r1.release_date <=> r2.release_date}
       end
     end
-    
-    # @param_str instance parameters 
-    # RESTful for redirection
-    checkked_buttons.each {|rating| @param_str = @param_str+'&ratings['+rating+']='+'1'}
-    session[:param_str] = @param_str
-    if params["commit"] != nil 
-      @submit_str = "?utf8="+params["utf8"]+@param_str+"&commit="+params["commit"]
-      session[:redirect_str] = @submit_str
-      session[:redirect_type] = "commit"
-    elsif params["sort"] != nil
-      session[:redirect_type] = "sort"
-      session[:redirect_str] = "?sort="+params["sort"]+@param_str
-    else
-      session[:redirect_type] = nil
-      session[:redirect_str] = ''
+  end
+
+  def redirect 
+    redirect_str = ''   
+    if session[:sort]!= nil      
+      redirect_str = "?sort="+session[:sort]
     end
+    if session[:ratings] != nil
+      session[:ratings].each do |rating, val|
+        redirect_str = redirect_str+'&ratings['+rating+']='+'1' unless val == false
+      end
+    end
+    flash.keep # Make sure we keep Flash infos if any intact
+    redirect_to movies_path+redirect_str
+  end
+
+  def set_ratings
+    ratings = Movie.select(:rating).map(&:rating).uniq.sort
+    ratings.each {|rating| @ratings[rating] = true}
+    session[:ratings] =@ratings  
+  end
+
+  def adjust_ratings
+    if params["ratings"] != nil
+      # Get the new ratings
+      param_ratings = params["ratings"].keys      
+      if param_ratings.length > 0
+        ratings = session[:ratings].keys
+        ratings.each {|rating| @ratings[rating] = false}        
+        param_ratings.each {|rating| @ratings[rating] = true}
+        session[:ratings] = @ratings            
+      end
+    end
+  end
+
+  def index
+    @sort_type = ''
+    @param_str = ''    
+    @ratings = Hash.new()      
+    checkked_buttons = []
+=begin
+    flash[:notice] = "session_data: sort_type: #{session[:sort]}, 
+    ratings: #{session[:ratings]}, cur_params: #{params}}"
+=end
+     
+    if (params["sort"] == nil && params["commit"] == nil && 
+       session[:sort] ==nil && session[:ratings] == nil)
+      # This should happen first time user visits sit
+       set_ratings
+    elsif params["commit"] == "ratings_submit"
+      # user pressed to do 'rating submit', adjust ratings if needed      
+      adjust_ratings
+      # Session had sort, Make RESTful URI redirect, if we need to sort
+      return redirect unless session[:sort] == nil     
+    elsif params["sort"] != nil && params["ratings"] == nil
+      # user is sorting, non redirect case
+      @sort_type = params["sort"]
+      session[:sort] = @sort_type # remember it
+      adjust_ratings
+    elsif params["sort"] != nil && params["ratings"] != nil
+      # this is the case, we got here because of our own redirection
+      @sort_type = params["sort"] 
+      session[:sort] = @sort_type     
+    elsif params["sort"] == nil &&  params["ratings"] == nil
+      # Make RESTful URI redirect
+      return redirect
+    else
+      flash[:notice] = "Unexpected Parameters"
+      return
+    end
+    @ratings =session[:ratings]
+    @sort_type = session[:sort]
+    @ratings.each do|rating, val| 
+      checkked_buttons << rating unless val == false
+      @param_str = @param_str+'&ratings['+rating+']='+'1' unless val == false
+    end    
+    sorted_results(checkked_buttons, @sort_type)
   end
 
   def new
     # default: render 'new' template
   end
 
-  def redirect
-    self.restore_session    
-    flash.keep 
-    if @ridirect_type != nil
-      redirect_to movies_path+@redirect_str
-    else
-      redirect_to movies_path
-    end
-  end
-
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created." 
-    self.redirect
+    redirect_to movies_path
   end
 
   def edit
@@ -114,7 +120,6 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
-    self.redirect
+    redirect_to movies_path
   end
-
 end
