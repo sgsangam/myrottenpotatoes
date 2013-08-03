@@ -75,6 +75,7 @@ class MoviesController < ApplicationController
       @sort_type = params["sort"]
       session[:sort] = @sort_type # remember it
       adjust_ratings
+      return redirect
     elsif params["sort"] != nil && params["ratings"] != nil
       # this is the case, we got here because of our own redirection
       @sort_type = params["sort"] 
