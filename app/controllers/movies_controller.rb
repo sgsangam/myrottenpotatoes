@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
       session[:ratings].each {|rating, val| redirect_str = redirect_str+'&ratings['+rating+']='+'1' unless val == false }
     end
     flash.keep # Make sure we keep Flash infos if any intact    
-    redirect_to (movies_path+redirect_str), status: 302
+    redirect_to movies_path+redirect_str, status: 302
   end
 
   def set_ratings
@@ -64,21 +64,24 @@ class MoviesController < ApplicationController
        session[:sort] ==nil && session[:ratings] == nil)
       # This should happen first time user visits site
        set_ratings
-       #session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
-       session[:ratings].each new_button_values.call(checkked_buttons)
+       session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
+       #session[:ratings].each new_button_values.call(checkked_buttons)
+       @ratings = session[:ratings]
     elsif params["commit"] == "ratings_submit"
       # user pressed to do 'rating submit', adjust ratings if needed      
       adjust_ratings
       # Session had sort, Make RESTful URI redirect, if we need to sort
       return redirect unless session[:sort] == nil
-      #session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
-      session[:ratings].each new_button_values.call(checkked_buttons)
+      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
+      #session[:ratings].each new_button_values.call(checkked_buttons)
+      @ratings = session[:ratings]
     elsif params["sort"] != nil && params["ratings"] == nil
       # user is sorting, non redirect case
       @sort_type = params["sort"]
       session[:sort] = @sort_type # remember it
       session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
       # session[:ratings].each  new_button_values.call(checkked_buttons)
+      @ratings = session[:ratings]
     elsif params["sort"] != nil && params["ratings"] != nil
       # this is the case, we got here because of our own redirection
       @sort_type = params["sort"]
