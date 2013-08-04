@@ -1,6 +1,9 @@
 class MoviesController < ApplicationController
 
   def show
+
+
+
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
@@ -18,7 +21,7 @@ class MoviesController < ApplicationController
     end
   end
 
-  def redirect 
+  def redirect
     redirect_str = ''
     if session[:sort] != nil    
       redirect_str = "?sort="+session[:sort] 
@@ -51,10 +54,6 @@ class MoviesController < ApplicationController
     end
   end
 
-  
-   new_button_values  = Proc.new{|rating, val| buttons << rating unless val == false}
-
-
   def index
     @sort_type = ''       
     @ratings = Hash.new()      
@@ -63,28 +62,25 @@ class MoviesController < ApplicationController
     flash[:notice] = "session_data: sort_type: #{session[:sort]}, 
     ratings: #{session[:ratings]}, cur_params: #{params}}"
 =end
-
      
     if (params["sort"] == nil && params["commit"] == nil && 
        session[:sort] ==nil && session[:ratings] == nil)
       # This should happen first time user visits site
        set_ratings
-       session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
-       #session[:ratings].each new_button_values.call(checkked_buttons)       
+       session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}  
     elsif params["commit"] == "ratings_submit"
       # user pressed to do 'rating submit', adjust ratings if needed      
       adjust_ratings
       # Session had sort, Make RESTful URI redirect, if we need to sort
       return redirect unless session[:sort] == nil
-      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
-      #session[:ratings].each new_button_values.call(checkked_buttons)
+      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}      
       @ratings = session[:ratings]
     elsif params["sort"] != nil && params["ratings"] == nil
       # user is sorting, non redirect case
       @sort_type = params["sort"]
       session[:sort] = @sort_type # remember it
-      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
-      # session[:ratings].each  new_button_values.call(checkked_buttons)      
+      return redirect
+      # session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}  
     elsif params["commit"] == nil && params["ratings"] != nil
       # this is the case, we got here because of our own redirection
       @sort_type = params["sort"]
@@ -108,8 +104,9 @@ class MoviesController < ApplicationController
   end
 
   def create
+
     @movie = Movie.create!(params[:movie])
-    flash[:notice] = "#{@movie.title} was successfully created." 
+    # flash[:notice] = "#{@movie.title} was successfully created." 
     redirect_to movies_path
   end
 
