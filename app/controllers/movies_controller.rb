@@ -2,8 +2,6 @@ class MoviesController < ApplicationController
 
   def show
 
-
-
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
@@ -23,13 +21,9 @@ class MoviesController < ApplicationController
 
   def redirect
     redirect_str = ''
-    if session[:sort] != nil    
-      redirect_str = "?sort="+session[:sort] 
-    else
-      redirect_str = "?"
-    end
+    redirect_str = "?sort="+session[:sort] unless session[:sort] == nil
     session[:ratings].each {|rating, val| redirect_str = redirect_str+'&ratings['+rating+']='+'1' unless val == false }
-    redirect_str[1] = "=" unless session[:sort] != nil
+    redirect_str[0] = "?" unless session[:sort] != nil
 
     flash.keep # Make sure we keep Flash infos if any intact    
     redirect_to movies_path+redirect_str, status: 302
@@ -79,8 +73,7 @@ class MoviesController < ApplicationController
       # user is sorting, non redirect case
       @sort_type = params["sort"]
       session[:sort] = @sort_type # remember it
-      return redirect
-      # session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}  
+      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}  
     elsif params["commit"] == nil && params["ratings"] != nil
       # this is the case, we got here because of our own redirection
       @sort_type = params["sort"]
