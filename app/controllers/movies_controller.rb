@@ -20,15 +20,11 @@ class MoviesController < ApplicationController
 
   def redirect 
     redirect_str = ''   
-    if session[:sort]!= nil      
-      redirect_str = "?sort="+session[:sort]
-    end
+    redirect_str = "?sort="+session[:sort] unless session[:sort]== nil
     if session[:ratings] != nil
-      session[:ratings].each do |rating, val|
-        redirect_str = redirect_str+'&ratings['+rating+']='+'1' unless val == false
-      end
+      session[:ratings].each {|rating, val| redirect_str = redirect_str+'&ratings['+rating+']='+'1' unless val == false }
     end
-    flash.keep # Make sure we keep Flash infos if any intact
+    flash.keep # Make sure we keep Flash infos if any intact    
     redirect_to movies_path+redirect_str
   end
 
@@ -51,9 +47,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  new_button_values = Proc.new{|rating, val| checkked_buttons << rating unless val == false}
+
   def index
-    @sort_type = ''
-    @param_str = ''    
+    @sort_type = ''       
     @ratings = Hash.new()      
     checkked_buttons = []
 =begin
@@ -63,23 +60,28 @@ class MoviesController < ApplicationController
      
     if (params["sort"] == nil && params["commit"] == nil && 
        session[:sort] ==nil && session[:ratings] == nil)
-      # This should happen first time user visits sit
+      # This should happen first time user visits site
        set_ratings
+       session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
+       # session[:ratings].each new_button_values.call(checkked_buttons)
     elsif params["commit"] == "ratings_submit"
       # user pressed to do 'rating submit', adjust ratings if needed      
       adjust_ratings
       # Session had sort, Make RESTful URI redirect, if we need to sort
-      return redirect unless session[:sort] == nil     
+      return redirect unless session[:sort] == nil
+      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
+      # session[:ratings].each new_button_values.call(checkked_buttons)
     elsif params["sort"] != nil && params["ratings"] == nil
       # user is sorting, non redirect case
       @sort_type = params["sort"]
       session[:sort] = @sort_type # remember it
-      adjust_ratings
-      return redirect
+      session[:ratings].each {|rating, val| checkked_buttons << rating unless val == false}
+      # session[:ratings].each new_button_values.call(checkked_buttons)
     elsif params["sort"] != nil && params["ratings"] != nil
       # this is the case, we got here because of our own redirection
-      @sort_type = params["sort"] 
-      session[:sort] = @sort_type     
+      @sort_type = params["sort"]
+      checkked_buttons << params["ratings"].keys
+      # session[:sort] = @sort_type     
     elsif params["sort"] == nil &&  params["ratings"] == nil
       # Make RESTful URI redirect
       return redirect
@@ -88,11 +90,8 @@ class MoviesController < ApplicationController
       return
     end
     @ratings =session[:ratings]
-    @sort_type = session[:sort]
-    @ratings.each do|rating, val| 
-      checkked_buttons << rating unless val == false
-      @param_str = @param_str+'&ratings['+rating+']='+'1' unless val == false
-    end    
+    # @sort_type = session[:sort]
+    @ratings.each {|rating, val| checkked_buttons << rating unless val == false}   
     sorted_results(checkked_buttons, @sort_type)
   end
 
